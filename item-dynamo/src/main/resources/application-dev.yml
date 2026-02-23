@@ -1,0 +1,9 @@
+aws:
+  dynamodb:
+    endpoint: http://localhost:8000
+    region: us-east-1
+
+logging:
+  level:
+    root: INFO
+    software.amazon.awssdk: WARN
