@@ -17,7 +17,7 @@ public class ItemRepository {
 
     private final DynamoDbEnhancedClient enhancedClient;
     private final DynamoDbTable<Item> table;
-    private final String tableName = "Items"; // ensure the table exists in AWS
+    private final String tableName = "items"; // ensure the table exists in AWS
 
     public ItemRepository(DynamoDbEnhancedClient enhancedClient) {
         this.enhancedClient = enhancedClient;
@@ -47,5 +47,10 @@ public class ItemRepository {
         List<Item> out = new ArrayList<>();
         table.scan().items().forEach(out::add);
         return out;
+    }
+
+
+    public void teste(){
+
     }
 }
