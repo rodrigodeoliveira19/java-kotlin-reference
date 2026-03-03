@@ -2,6 +2,7 @@ package br.com.item.service;
 
 import br.com.item.dto.ItemRequest;
 import br.com.item.dto.ItemResponse;
+import br.com.item.event.ItemEventPublisher;
 import br.com.item.exception.BusinessException;
 import br.com.item.exception.ResourceNotFoundException;
 import br.com.item.model.Item;
@@ -16,9 +17,14 @@ import java.util.stream.Collectors;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final ItemEventPublisher publisher;
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(
+            ItemRepository itemRepository,
+            ItemEventPublisher publisher
+    ) {
         this.itemRepository = itemRepository;
+        this.publisher = publisher;
     }
 
     // Create
@@ -37,6 +43,7 @@ public class ItemService {
         item.setCreatedAt(Instant.now());
 
         Item saved = itemRepository.save(item);
+        publisher.publish(saved); // envio para fila.
         return toResponse(saved);
     }
 
