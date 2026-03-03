@@ -32,7 +32,7 @@ public class SqsConfig {
     }
 
     @Bean
-    @Profile("prod")
+    @Profile("dev")
     public SqsClient prodSqsClient() {
         return SqsClient.builder()
                 .region(Region.of(region))

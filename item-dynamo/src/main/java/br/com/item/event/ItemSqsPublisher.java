@@ -8,13 +8,13 @@ import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import tools.jackson.databind.ObjectMapper;
 
 @Service
-public class ItemEventPublisher {
+public class ItemSqsPublisher {
 
     private final SqsClient sqsClient;
     private final ObjectMapper objectMapper;
     private final String queueUrl;
 
-    public ItemEventPublisher(
+    public ItemSqsPublisher(
             SqsClient sqsClient,
             ObjectMapper objectMapper,
             @Value("${aws.sqs.queue-url}") String queueUrl
@@ -34,6 +34,7 @@ public class ItemEventPublisher {
                     .build();
 
             sqsClient.sendMessage(request);
+            System.out.println("Mensagem enviada ´para fila com sucesso: ID item"+event.getId());
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao publicar evento", e);

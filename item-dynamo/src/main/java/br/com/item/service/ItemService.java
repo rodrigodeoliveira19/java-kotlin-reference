@@ -2,7 +2,7 @@ package br.com.item.service;
 
 import br.com.item.dto.ItemRequest;
 import br.com.item.dto.ItemResponse;
-import br.com.item.event.ItemEventPublisher;
+import br.com.item.event.ItemSqsPublisher;
 import br.com.item.exception.BusinessException;
 import br.com.item.exception.ResourceNotFoundException;
 import br.com.item.model.Item;
@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final ItemEventPublisher publisher;
+    private final ItemSqsPublisher publisher;
 
     public ItemService(
             ItemRepository itemRepository,
-            ItemEventPublisher publisher
+            ItemSqsPublisher publisher
     ) {
         this.itemRepository = itemRepository;
         this.publisher = publisher;
