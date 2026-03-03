@@ -10,7 +10,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import java.net.URI;
 
 @Configuration
-@Profile("dev")
+@Profile("local")
 public class DynamoLocalConfig {
 
     @Value("${aws.dynamodb.endpoint}")
