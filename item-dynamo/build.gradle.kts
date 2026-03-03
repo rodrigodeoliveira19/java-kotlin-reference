@@ -24,6 +24,12 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	//DynamoDB
+	implementation(platform("software.amazon.awssdk:bom:2.25.30"))
+
+	implementation("software.amazon.awssdk:dynamodb")
+	implementation("software.amazon.awssdk:dynamodb-enhanced")
 }
 
 tasks.withType<Test> {

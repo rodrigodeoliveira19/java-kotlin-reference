@@ -1,0 +1,8 @@
+aws:
+  dynamodb:
+    region: us-east-1
+
+logging:
+  level:
+    root: INFO
+    software.amazon.awssdk: WARN
