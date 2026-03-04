@@ -16,7 +16,7 @@ public class DynamoLocalConfig {
     @Value("${aws.dynamodb.endpoint}")
     private String endpoint;
 
-    @Value("${aws.dynamodb.region}")
+    @Value("${aws.region}")
     private String region;
 
     @Bean

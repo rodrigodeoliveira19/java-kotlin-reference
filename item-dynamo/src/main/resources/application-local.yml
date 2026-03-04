@@ -1,0 +1,12 @@
+aws:
+  region: us-east-1 # Remover duplicidade
+  dynamodb:
+    endpoint: http://localhost:8000
+    region: us-east-1
+  sqs:
+    queue-url: http://localhost:4566/000000000000/item-created-queue
+
+logging:
+  level:
+    root: INFO
+    software.amazon.awssdk: WARN

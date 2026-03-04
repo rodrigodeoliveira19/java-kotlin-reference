@@ -1,7 +1,10 @@
 aws:
+  region: sa-east-1
   dynamodb:
     endpoint: http://localhost:8000
-    region: us-east-1
+  sqs:
+    queue-url: 1
+
 
 logging:
   level:
