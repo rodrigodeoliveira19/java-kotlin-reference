@@ -69,4 +69,4 @@ aws dynamodb list-tables \
 
 ### Filas SQS Standard
 
-O script esta na pasta localstack/init. Ao subir o container as filas são criadas. 
+O script está na pasta localstack/init. Ao subir o container as filas são criadas. 
