@@ -43,7 +43,8 @@ public class ItemService {
         item.setCreatedAt(Instant.now());
 
         Item saved = itemRepository.save(item);
-        publisher.publish(saved); // envio para fila.
+        publisher.publish(saved); // envio para standard.
+        publisher.publishFifo(saved); // envio para fila fifo.
         return toResponse(saved);
     }
 

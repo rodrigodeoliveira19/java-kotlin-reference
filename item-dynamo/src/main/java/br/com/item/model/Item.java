@@ -53,5 +53,16 @@ public class Item {
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", active=" + active +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
 

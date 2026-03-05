@@ -18,15 +18,18 @@ public class ItemSqsConsumer {
     private final SqsClient sqsClient;
     private final ObjectMapper objectMapper;
     private final String queueUrl;
+    private final String fifoQueueUrl;
 
     public ItemSqsConsumer(
             SqsClient sqsClient,
             ObjectMapper objectMapper,
-            @Value("${aws.sqs.queue-url}") String queueUrl
+            @Value("${aws.sqs.queue-url}") String queueUrl,
+            @Value("${aws.sqs.fifo-queue-url}") String fifoQueueUrl
     ) {
         this.sqsClient = sqsClient;
         this.objectMapper = objectMapper;
         this.queueUrl = queueUrl;
+        this.fifoQueueUrl = fifoQueueUrl;
     }
 
     @Scheduled(fixedDelay = 5000)
@@ -39,26 +42,42 @@ public class ItemSqsConsumer {
                 .maxNumberOfMessages(10)
                 .build();
 
+        pollAndProcessMessages(request);
+    }
+
+    @Scheduled(fixedDelay = 10000)
+    public void pollFifoMessages() {
+
+        ReceiveMessageRequest request = ReceiveMessageRequest.builder()
+                .queueUrl(fifoQueueUrl)
+                .waitTimeSeconds(20) // Long polling - “Se não houver mensagem agora, espere até 20 segundos antes de
+                // responder - Menos custo”
+                .maxNumberOfMessages(10)
+                .build();
+
+        pollAndProcessMessages(request);
+    }
+
+    private void pollAndProcessMessages(ReceiveMessageRequest request) {
         List<Message> messages = sqsClient.receiveMessage(request).messages();
 
-        System.out.println("Encontrado item: "+ messages.size());
+        String queue = request.queueUrl();
         for (Message message : messages) {
-            processMessage(message);
+            System.out.println("Processando item da fila: "+ queue +" Item: "+message.body());
+            processMessage(message, queue);
         }
     }
 
-    private void processMessage(Message message) {
+    private void processMessage(Message message, String queue) {
 
         try {
-            System.out.println("Iniciando o processando do item");
-
             Item event =
                     objectMapper.readValue(message.body(), Item.class);
 
             // 🔥 PROCESSAMENTO IDPOTENTE AQUI
             handleBusinessLogic(event);
 
-            deleteMessage(message);
+            deleteMessage(message, queue);
 
         } catch (Exception e) {
             // NÃO delete a mensagem
@@ -67,7 +86,7 @@ public class ItemSqsConsumer {
         }
     }
 
-    private void deleteMessage(Message message) {
+    private void deleteMessage(Message message,String queueUrl) {
         sqsClient.deleteMessage(DeleteMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .receiptHandle(message.receiptHandle())
@@ -75,6 +94,6 @@ public class ItemSqsConsumer {
     }
 
     private void handleBusinessLogic(Item event) {
-        System.out.println("Processando item: " + event.getDescription());
+        System.out.println("Processando item: " + event.toString());
     }
 }
