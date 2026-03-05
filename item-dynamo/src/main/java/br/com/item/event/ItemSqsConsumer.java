@@ -64,12 +64,11 @@ public class ItemSqsConsumer {
         String queue = request.queueUrl();
         for (Message message : messages) {
             System.out.println("Processando item da fila: "+ queue +" Item: "+message.body());
-            processMessage(message);
-            deleteMessage(message, queue); //Ver o melhor local. Aqui vai deletar se der erro.
+            processMessage(message, queue);
         }
     }
 
-    private void processMessage(Message message) {
+    private void processMessage(Message message, String queue) {
 
         try {
             Item event =
@@ -77,6 +76,8 @@ public class ItemSqsConsumer {
 
             // 🔥 PROCESSAMENTO IDPOTENTE AQUI
             handleBusinessLogic(event);
+
+            deleteMessage(message, queue);
 
         } catch (Exception e) {
             // NÃO delete a mensagem
