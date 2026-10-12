@@ -5,6 +5,13 @@ import org.junit.jupiter.api.Test
 
 /*
 O problema é compatibilidade.
+
+Qual é o principal objetivo?
+Compatibilidade: integrar classes ou bibliotecas com interfaces diferentes.
+
+Reutilização: aproveitar código existente sem precisar modificá-lo.
+
+Baixo acoplamento: evitar que o cliente dependa diretamente dos detalhes da implementação externa.
 * */
 // 3rd party functionality
 
