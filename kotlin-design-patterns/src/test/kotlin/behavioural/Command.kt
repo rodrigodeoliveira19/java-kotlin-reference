@@ -2,8 +2,10 @@ package behavioural
 
 import org.junit.jupiter.api.Test
 /*
-O Command é um padrão de projeto comportamental que encapsula uma solicitação (ou ação) em um objeto. Em vez de um objeto chamar diretamente um método de outro, ele cria um comando que representa essa operação.
-Isso permite tratar ações como objetos: armazená-las, enfileirá-las, desfazê-las (undo), registrá-las em log ou executá-las posteriormente.
+O Command é um padrão de projeto comportamental que encapsula uma solicitação (ou ação) em um objeto. Em vez de um objeto
+chamar diretamente um método de outro, ele cria um comando que representa essa operação.
+Isso permite tratar ações como objetos: armazená-las, enfileirá-las, desfazê-las (undo), registrá-las em log ou executá-las
+ posteriormente.
 * */
 
 // Ex 1

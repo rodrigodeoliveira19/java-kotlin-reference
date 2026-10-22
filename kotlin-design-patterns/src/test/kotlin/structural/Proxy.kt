@@ -3,8 +3,15 @@ package structural
 import org.junit.jupiter.api.Test
 
 /*
-* O Proxy é um padrão de projeto estrutural que fornece um objeto substituto (proxy) para controlar o acesso a outro objeto (o objeto real).
+* O Proxy é um padrão de projeto estrutural que fornece um objeto substituto (proxy) para controlar o acesso a outro objeto
+*  (o objeto real).
 Em vez de o cliente conversar diretamente com o objeto real, ele conversa com o proxy.
+*
+* Use esse padrão quando precisar controlar o acesso a um objeto, adiar sua criação, armazenar resultados em cache ou
+* intermediar chamadas remotas, sem mudar a interface que o cliente utiliza.
+
+Em resumo: o Proxy é um representante de um objeto real que oferece a mesma interface e adiciona controle sobre como e
+* quando esse objeto é acessado.
 
 * */
 interface Image {
