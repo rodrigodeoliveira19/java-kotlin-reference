@@ -1,0 +1,21 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: demo-app-financeiro-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: demo-app-financeiro-localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=dynamodb
+      - DEBUG=0
+      - AWS_DEFAULT_REGION=us-east-1
+    volumes:
+      - ./localstack:/var/lib/localstack
+      - ./localstack/init:/docker-entrypoint-initaws.d
+      - /var/run/docker.sock:/var/run/docker.sock
